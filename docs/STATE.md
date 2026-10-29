@@ -1,4 +1,4 @@
-# STATE.md — tenant `bsky` — last updated: 2026-10-28
+# STATE.md — tenant `bsky` — last updated: 2026-10-29
 
 > Current facts about the `bsky` tenant on node0. Platform facts (node, RAM budget, disk,
 > network) live in `~/homelab/docs/STATE.md`; cite them, don't copy them. Decisions →
@@ -8,8 +8,8 @@
 
 | Slice | Status | Proof |
 |---|---|---|
-| 0 Skeleton | ▶ next | Repo pushed, then homelab `apps/tenants/bsky/` committed → Application `bsky` `Synced`/`Healthy`, quota visible |
-| 1 Ingest | — | |
+| 0 Skeleton | ✅ 2026-10-29 | Application `bsky` `Synced`/`Healthy` at `ee8f01f`; quota and LimitRange live (homelab `field-notes.md`) |
+| 1 Ingest | ▶ next | Blocked on the Strimzi operator (Waiting on platform) |
 | 2 Hot path | — | |
 | 3 Batch | — | |
 | 4 Flink | — | |
@@ -23,6 +23,10 @@
 - `ResourceQuota` `bsky-memory`: `requests.memory` 10Gi, `limits.memory` 14Gi, 12 PVCs.
 - `LimitRange` `bsky-defaults`: per-container default 128Mi request / 512Mi limit.
 - Application `bsky`: `main`, path `.`, automated, prune + selfHeal, no finalizer.
+- **No backups** (homelab ADR-044): restic excludes `*_bsky_*`. Every volume here is
+  losable; a rebuild brings the tenant back empty, raw Iceberg archive included.
+- First sync of a new tenant can show `InvalidSpecError … project bsky which does not exist`
+  for a few minutes. It clears by itself; wait one reconcile.
 
 ## Deployed
 
@@ -62,8 +66,6 @@ re-runs these steps.
 ## Waiting on platform (take to a homelab session)
 
 - **Strimzi operator** for slice 1: version, install method, `watchNamespaces: [bsky]`.
-- **Backups:** restic copies all local-path volumes, including `bsky`'s. Decide before slice 1's
-  volumes grow (homelab STATE → Open items → `bsky` 5).
 
 ## Open items
 

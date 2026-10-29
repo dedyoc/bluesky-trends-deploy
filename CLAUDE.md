@@ -60,9 +60,9 @@ Canonical source: `~/homelab/docs/STATE.md`. Summary as of 2026-10-28:
   **Anything that grows gets a retention:** Kafka `retention.bytes`/`retention.ms` per topic,
   ClickHouse TTLs, a MinIO lifecycle or a bounded archive. When root fills to 95%, the kubelet
   evicts pods.
-- **Backups:** homelab's restic job copies all of `/var/lib/rancher/k3s/storage/` daily, so
-  your PVCs too, unless the platform excludes them. This is an open decision (STATE.md →
-  Waiting on platform).
+- **Backups: none, by decision** (homelab ADR-044). restic excludes every `bsky` volume.
+  Treat all data here as losable: anything that must survive a dead disk lives in Git or gets
+  re-collected. If a slice would hold something irreplaceable, stop and say so.
 - **Network:** outbound only. No inbound ports, ever. Jetstream (`wss://…bsky.network`,
   outbound :443) is **not yet proven from node0**: the building network filters in ways we
   can't see. Image pulls from `ghcr.io` work.

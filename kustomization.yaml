@@ -1,0 +1,7 @@
+# kustomization.yaml — root of tenant `bsky`, synced by ArgoCD Application `bsky` (homelab ADR-042).
+# One directory per component, each with its own kustomization.yaml (ADR-001).
+# Add a component: create <component>/, then list it below.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: bsky
+resources: []

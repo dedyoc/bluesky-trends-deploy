@@ -64,8 +64,7 @@ Canonical source: `~/homelab/docs/STATE.md`. Summary as of 2026-10-28:
   Treat all data here as losable: anything that must survive a dead disk lives in Git or gets
   re-collected. If a slice would hold something irreplaceable, stop and say so.
 - **Network:** outbound only. No inbound ports, ever. Jetstream (`wss://…bsky.network`,
-  outbound :443) is **not yet proven from node0**: the building network filters in ways we
-  can't see. Image pulls from `ghcr.io` work.
+  :443) works from node0's host (2026-10-29). Image pulls from `ghcr.io` work.
 - **UIs (Grafana, Dagster, MinIO console):** no Ingress. Memos owns `/` on every host (homelab
   ADR-037) and there is no domain yet (parked). Reach a UI from the laptop with an SSH tunnel
   plus a port-forward on node0, for example:

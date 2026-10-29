@@ -25,6 +25,9 @@
 - Application `bsky`: `main`, path `.`, automated, prune + selfHeal, no finalizer.
 - **No backups** (homelab ADR-044): restic excludes `*_bsky_*`. Every volume here is
   losable; a rebuild brings the tenant back empty, raw Iceberg archive included.
+- **Jetstream is reachable from node0's host** (2026-10-29): websocket `101`, ~27 KB/s of posts
+  only. From a pod: not tested; expect the same (pods egress via the node). Use `curl --http1.1`
+  to probe; plain curl gives a misleading `426`.
 - First sync of a new tenant can show `InvalidSpecError … project bsky which does not exist`
   for a few minutes. It clears by itself; wait one reconcile.
 
@@ -71,7 +74,5 @@ re-runs these steps.
 
 - [ ] **Images:** no CI in `bluesky-trends` yet. Slice 1 needs `ghcr.io/dedyoc/…` ingest image,
   public, pinned by digest here. That work happens in the `bluesky-trends` session.
-- [ ] **Jetstream from node0:** outbound `wss` to Jetstream not yet proven through the building
-  network. First check of slice 1 (a throwaway pod, or `curl` from node0).
 - [ ] **`bluesky-trends` docs drift:** they name namespaces `kafka`/`minio` and a repo
   `homelab-ops`. Correct in that repo's session.

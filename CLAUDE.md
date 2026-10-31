@@ -156,9 +156,10 @@ No slice is pre-built "because we'll need it".
 
 - Dev runs **Redpanda**, which has a built-in schema registry. Here it's Strimzi Kafka, plus
   **Karapace** as its own Deployment. `redpanda-init`'s topic creation becomes `KafkaTopic` CRs.
-- `bluesky-trends` docs assume namespaces `kafka`/`minio` and a repo named `homelab-ops`.
-  Both are wrong: everything runs in `bsky`, and this repo is `bluesky-trends-deploy`. Note it
-  for the `bluesky-trends` session; don't edit that repo from here.
+- `bluesky-trends` docs name in-cluster hosts as placeholders (`<kafka-name>-kafka-bootstrap.bsky.svc`,
+  `<minio-svc>.bsky.svc`). When a slice fixes a real service name, record it in `docs/STATE.md`
+  and tell the owner so that repo's `tech-stack.md` gets updated in its own session.
+- `github.com/dedyoc/homelab-ops` is an old, unused attempt. Never treat it as a source.
 - ClickHouse init scripts only run on a fresh volume (seen in dev). On K8s, decide in slice 2
   how DDL is applied and re-applied (a Job, or the operator's mechanism), and make it idempotent.
 - Service DNS inside the namespace is `<svc>.bsky.svc.cluster.local`; config that hardcodes

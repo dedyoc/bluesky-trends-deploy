@@ -74,5 +74,3 @@ re-runs these steps.
 
 - [ ] **Images:** no CI in `bluesky-trends` yet. Slice 1 needs `ghcr.io/dedyoc/…` ingest image,
   public, pinned by digest here. That work happens in the `bluesky-trends` session.
-- [ ] **`bluesky-trends` docs drift:** they name namespaces `kafka`/`minio` and a repo
-  `homelab-ops`. Correct in that repo's session.
